@@ -23,7 +23,7 @@ variable "admin_password" {
 }
 
 variable "public_key" {
-  description "contents of SSH public key that will be uploaded to linux VM"
+  description = "contents of SSH public key that will be uploaded to linux VM"
 }
 
 resource "null_resource" "public_key" {
