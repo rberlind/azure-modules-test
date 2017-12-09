@@ -23,16 +23,12 @@ variable "admin_password" {
 }
 
 variable "public_key" {
-  description = "contents of SSH public key that will be uploaded to linux VM"
+  description = "contents of SSH public key that will be uploaded to linux VM as id_rsa.pub"
 }
 
-resource "null_resource" "public_key" {
-  provisioner "local-exec" {
-    command = "echo '${var.public_key}' > public_key.pem"
-  }
-  provisioner "local-exec" {
-    command = "chmod 600 public_key.pem"
-  }
+module "ssh_key" {
+  source = "./ssh_key"
+  public_key = "${var.public_key}"
 }
 
 module "linuxserver" {
@@ -41,6 +37,7 @@ module "linuxserver" {
   vm_os_simple        = "UbuntuServer"
   public_ip_dns       = ["${var.linux_dns_prefix}"]
   vnet_subnet_id      = "${module.network.vnet_subnets[0]}"
+  ssh_key = "${module.ssh_key.ssh_key_file_name}"
 }
 
 module "windowsserver" {
