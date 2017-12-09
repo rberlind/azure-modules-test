@@ -3,7 +3,7 @@ terraform {
 }
 
 variable "location" {
-  description = "Azure location in which to create resources"
+  description = "Azure location in which to create the resources"
   default = "East US"
 }
 
