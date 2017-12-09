@@ -22,6 +22,19 @@ variable "admin_password" {
   default = "pTFE123!"
 }
 
+variable "public_key" {
+  description "contents of SSH public key that will be uploaded to linux VM"
+}
+
+resource "null_resource" "public_key" {
+  provisioner "local-exec" {
+    command = "echo '${var.public_key}' > public_key.pem"
+  }
+  provisioner "local-exec" {
+    command = "chmod 600 public_key.pem"
+  }
+}
+
 module "linuxserver" {
   source              = "Azure/compute/azurerm"
   location            = "${var.location}"
@@ -47,9 +60,9 @@ module "network" {
 }
 
 output "linux_vm_public_name"{
-  value = "${module.linuxservers.public_ip_dns_name}"
+  value = "${module.linuxserver.public_ip_dns_name}"
 }
 
 output "windows_vm_public_name"{
-  value = "${module.windowsservers.public_ip_dns_name}"
+  value = "${module.windowsserver.public_ip_dns_name}"
 }
