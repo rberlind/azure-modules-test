@@ -44,7 +44,7 @@ module "linuxserver" {
   public_ip_dns       = ["${var.linux_dns_prefix}-1", "${var.linux_dns_prefix}-2"]
   public_ip_address_allocation = "Dynamic"
   vnet_subnet_id      = "${module.network.vnet_subnets[0]}"
-  ssh_key = "${module.ssh_key.ssh_key_file_name}"
+  ssh_key = "ssh_key/${module.ssh_key.ssh_key_file_name}"
 }
 
 /*module "windowsserver" {
