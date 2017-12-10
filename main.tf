@@ -41,7 +41,7 @@ module "linuxserver" {
   ssh_key = "${module.ssh_key.ssh_key_file_name}"
 }
 
-module "windowsserver" {
+/*module "windowsserver" {
   source              = "Azure/compute/azurerm"
   location            = "${var.location}"
   vm_hostname         = "pwc-ptfe" // line can be removed if only one VM module per resource group
@@ -50,7 +50,7 @@ module "windowsserver" {
   public_ip_dns       = ["${var.windows_dns_prefix}"]
   public_ip_address_allocation = "Dynamic"
   vnet_subnet_id      = "${module.network.vnet_subnets[0]}"
-}
+}*/
 
 module "network" {
   source              = "Azure/network/azurerm"
@@ -62,6 +62,6 @@ output "linux_vm_public_name"{
   value = "${module.linuxserver.public_ip_dns_name}"
 }
 
-output "windows_vm_public_name"{
+/*output "windows_vm_public_name"{
   value = "${module.windowsserver.public_ip_dns_name}"
-}
+}*/
