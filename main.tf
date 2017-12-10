@@ -63,6 +63,7 @@ module "network" {
   source              = "Azure/network/azurerm"
   location            = "${var.location}"
   resource_group_name = "terraform-compute"
+  allow_ssh_traffic = true
 }
 
 output "linux_vm_public_name"{
