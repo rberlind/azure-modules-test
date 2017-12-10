@@ -22,11 +22,6 @@ variable "admin_password" {
   default = "pTFE123!"
 }
 
-variable "nb_public_ip" {
-  description = "number of public IPs on each VM"
-  default = "1"
-}
-
 variable "public_key" {
   description = "contents of SSH public key that will be uploaded to linux VM as id_rsa.pub"
 }
@@ -40,36 +35,32 @@ module "linuxserver" {
   source              = "Azure/compute/azurerm"
   location            = "${var.location}"
   vm_os_simple        = "UbuntuServer"
-  admin_password      = "${var.admin_password}"
-  nb_public_ip        = "${var.nb_public_ip}"
   public_ip_dns       = ["${var.linux_dns_prefix}"]
-  public_ip_address_allocation = "dynamic"
   vnet_subnet_id      = "${module.network.vnet_subnets[0]}"
   ssh_key = "${module.ssh_key.ssh_key_file_name}"
 }
 
-/*module "windowsserver" {
+module "windowsserver" {
   source              = "Azure/compute/azurerm"
   location            = "${var.location}"
-  vm_hostname         = "pwc-ptfe" // line can be removed if only one VM module per resource group
+  vm_hostname         = "pwc-ptfe"
   admin_password      = "${var.admin_password}"
   vm_os_simple        = "WindowsServer"
   public_ip_dns       = ["${var.windows_dns_prefix}"]
-  public_ip_address_allocation = "dynamic"
   vnet_subnet_id      = "${module.network.vnet_subnets[0]}"
-}*/
+}
 
 module "network" {
   source              = "Azure/network/azurerm"
   location            = "${var.location}"
   resource_group_name = "terraform-compute"
-  allow_ssh_traffic = true
+  allow_ssh_traffic   = true
 }
 
 output "linux_vm_public_name"{
   value = "${module.linuxserver.public_ip_dns_name}"
 }
 
-/*output "windows_vm_public_name"{
+output "windows_vm_public_name"{
   value = "${module.windowsserver.public_ip_dns_name}"
-}*/
+}
