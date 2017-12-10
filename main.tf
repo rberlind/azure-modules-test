@@ -65,8 +65,8 @@ resource "null_resource" "sleep" {
 
 data "null_data_source" "dns_names" {
   inputs = {
-    linux_dns_names = "${module.linuxserver.public_ip_dns_name}"
-    windows_dns_names = "${module.windowsserver.public_ip_dns_name}"
+    linux_dns_names = "${concat(module.linuxserver.public_ip_dns_name)}"
+    windows_dns_names = "${concat(module.windowsserver.public_ip_dns_name)}"
   }
   depends_on = ["null_resource.sleep"]
 }
