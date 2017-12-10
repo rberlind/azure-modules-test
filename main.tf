@@ -31,7 +31,7 @@ module "ssh_key" {
   public_key = "${var.public_key}"
 }
 
-/*module "linuxserver" {
+module "linuxserver" {
   source              = "Azure/compute/azurerm"
   location            = "${var.location}"
   vm_os_simple        = "UbuntuServer"
@@ -39,7 +39,7 @@ module "ssh_key" {
   public_ip_address_allocation = "Dynamic"
   vnet_subnet_id      = "${module.network.vnet_subnets[0]}"
   ssh_key = "${module.ssh_key.ssh_key_file_name}"
-}*/
+}
 
 module "windowsserver" {
   source              = "Azure/compute/azurerm"
@@ -58,9 +58,9 @@ module "network" {
   resource_group_name = "terraform-compute"
 }
 
-/*output "linux_vm_public_name"{
+output "linux_vm_public_name"{
   value = "${module.linuxserver.public_ip_dns_name}"
-}*/
+}
 
 output "windows_vm_public_name"{
   value = "${module.windowsserver.public_ip_dns_name}"
