@@ -18,6 +18,8 @@ You can use the original GitHub repository, rberlind/azure-modules-test or creat
 1. Click the "Queue Plan" button in the upper right corner of the workspace page.
 1. After the Plan successfully completes, click the "Confirm and Apply" button at the bottom of the page.
 
+Note that you will probably see 2 errors from inside the Azure compute module at the end of the apply indicating that the resource azurerm_public_ip.vm does not have an ip_address. This is because the public IP addresses are not ready when the module writes its outputs. But the VMs will be correctly provisioned. If you run apply a second time, you will not see any errors.
+
 ## Destroying
 Do the following to destroy the Azure infrastructure provisioned by this configuration.
 
