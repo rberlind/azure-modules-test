@@ -63,10 +63,18 @@ resource "null_resource" "sleep" {
   depends_on = ["module.linuxserver", "module.windowsserver"]
 }
 
+data "null_data_source" "dns_names" {
+  inputs = {
+    linux_dns_names = "${module.linuxserver.public_ip_dns_name}"
+    windows_dns_names = "${module.windowsserver.public_ip_dns_name}"
+  }
+  depends_on = ["null_resource.sleep"]
+}
+
 output "linux_vm_public_name" {
-  value = "${module.linuxserver.public_ip_dns_name}"
+  value = "${data.null_data_source.dns_names.outputs["linux_dns_names"]}"
 }
 
 output "windows_vm_public_name" {
-  value = "${module.windowsserver.public_ip_dns_name}"
+  value = "${data.null_data_source.dns_names.outputs["windows_dns_names"]}"
 }
