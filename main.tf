@@ -24,6 +24,7 @@ variable "public_key" {
   description = "contents of SSH public key that will be uploaded to linux VM as id_rsa.pub"
 }
 
+# module used to write contents of public_key variable into the pre-existing, empty id_rsa.pub file.
 module "ssh_key" {
   source = "./ssh_key"
   public_key = "${var.public_key}"
@@ -54,30 +55,6 @@ module "network" {
   resource_group_name = "terraform-compute"
   allow_ssh_traffic   = true
 }
-
-/*# Sleep before outputting public names of VMs
-resource "null_resource" "sleep" {
-  provisioner "local-exec" {
-    command = "sleep 30"
-  }
-  depends_on = ["module.linuxserver", "module.windowsserver"]
-}
-
-data "null_data_source" "dns_names" {
-  inputs = {
-    linux_dns_names = "${join(",", module.linuxserver.public_ip_dns_name)}"
-    windows_dns_names = "${join(",", module.windowsserver.public_ip_dns_name)}"
-  }
-  depends_on = ["null_resource.sleep"]
-}
-
-output "linux_vm_public_name" {
-  value = "${data.null_data_source.dns_names.outputs["linux_dns_names"]}"
-}
-
-output "windows_vm_public_name" {
-  value = "${data.null_data_source.dns_names.outputs["windows_dns_names"]}"
-}*/
 
 output "linux_vm_public_name"{
   value = "${module.linuxserver.public_ip_dns_name}"
