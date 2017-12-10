@@ -22,6 +22,11 @@ variable "admin_password" {
   default = "pTFE123!"
 }
 
+variable "nb_public_ip" {
+  description = "number of public IPs on each VM"
+  default = "2"
+}
+
 variable "public_key" {
   description = "contents of SSH public key that will be uploaded to linux VM as id_rsa.pub"
 }
@@ -35,7 +40,8 @@ module "linuxserver" {
   source              = "Azure/compute/azurerm"
   location            = "${var.location}"
   vm_os_simple        = "UbuntuServer"
-  public_ip_dns       = ["${var.linux_dns_prefix}"]
+  nb_public_ip        = "${var.nb_public_ip}"
+  public_ip_dns       = ["${var.linux_dns_prefix}-1", "${var.linux_dns_prefix}-2"]
   public_ip_address_allocation = "Dynamic"
   vnet_subnet_id      = "${module.network.vnet_subnets[0]}"
   ssh_key = "${module.ssh_key.ssh_key_file_name}"
