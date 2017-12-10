@@ -9,12 +9,12 @@ variable "location" {
 
 variable "linux_dns_prefix" {
   description = "DNS prefix to add to to public IP address for Linux VM"
-  default = "pwc-ptfe-linux"
+  default = "roger-ptfe-linux"
 }
 
 variable "windows_dns_prefix" {
   description = "DNS prefix to add to to public IP address for Windows VM"
-  default = "pwc-ptfe-windows"
+  default = "roger-ptfe-windows"
 }
 
 variable "admin_password" {
@@ -31,14 +31,14 @@ module "ssh_key" {
   public_key = "${var.public_key}"
 }
 
-module "linuxserver" {
+/*module "linuxserver" {
   source              = "Azure/compute/azurerm"
   location            = "${var.location}"
   vm_os_simple        = "UbuntuServer"
   public_ip_dns       = ["${var.linux_dns_prefix}"]
   vnet_subnet_id      = "${module.network.vnet_subnets[0]}"
   ssh_key = "${module.ssh_key.ssh_key_file_name}"
-}
+}*/
 
 module "windowsserver" {
   source              = "Azure/compute/azurerm"
@@ -56,9 +56,9 @@ module "network" {
   resource_group_name = "terraform-compute"
 }
 
-output "linux_vm_public_name"{
+/*output "linux_vm_public_name"{
   value = "${module.linuxserver.public_ip_dns_name}"
-}
+}*/
 
 output "windows_vm_public_name"{
   value = "${module.windowsserver.public_ip_dns_name}"

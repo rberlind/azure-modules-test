@@ -2,9 +2,9 @@ variable "public_key" {
   description = "contents of SSH public key that will be uploaded to linux VM as id_rsa.pub"
 }
 
-resource "null_resource" "public_key" {
+resource "null_resource" "write_public_key" {
   provisioner "local-exec" {
-    command = "echo '${var.public_key}' > is_rsa.pub"
+    command = "echo '${var.public_key}' > id_rsa.pub"
   }
   provisioner "local-exec" {
     command = "chmod 400 id_rsa.pub"
