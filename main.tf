@@ -55,10 +55,18 @@ module "network" {
   allow_ssh_traffic   = true
 }
 
-output "linux_vm_public_name"{
+# Sleep before outputting public names of VMs
+resource "null_resource" "sleep" {
+  provisioner "local-exec" {
+    command = "sleep 30"
+  }
+  depends_on = ["module.linuxserver", "module.windowsserver"]
+}
+
+output "linux_vm_public_name" {
   value = "${module.linuxserver.public_ip_dns_name}"
 }
 
-output "windows_vm_public_name"{
+output "windows_vm_public_name" {
   value = "${module.windowsserver.public_ip_dns_name}"
 }
