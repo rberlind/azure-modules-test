@@ -9,12 +9,10 @@ variable "location" {
 
 variable "linux_dns_prefix" {
   description = "DNS prefix to add to to public IP address for Linux VM"
-  default = "roger-ptfe-linux"
 }
 
 variable "windows_dns_prefix" {
   description = "DNS prefix to add to to public IP address for Windows VM"
-  default = "roger-ptfe-windows"
 }
 
 variable "admin_password" {
