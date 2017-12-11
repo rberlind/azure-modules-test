@@ -25,9 +25,14 @@ variable "public_key" {
 }
 
 # module used to write contents of public_key variable into the pre-existing, empty id_rsa.pub file.
-module "ssh_key" {
+/*module "ssh_key" {
   source = "./ssh_key"
   public_key = "${var.public_key}"
+}*/
+
+resource "local_file" "ssh_key" {
+  content = "${var.public_key}"
+  filename = "id_rsa.pub"
 }
 
 module "linuxserver" {
@@ -36,10 +41,11 @@ module "linuxserver" {
   vm_os_simple        = "UbuntuServer"
   public_ip_dns       = ["${var.linux_dns_prefix}"]
   vnet_subnet_id      = "${module.network.vnet_subnets[0]}"
-  ssh_key = "${module.ssh_key.ssh_key_file_name}"
+  #ssh_key = "${module.ssh_key.ssh_key_file_name}"
+  ssh_key = "${local_file.ssh_key.filename}"
 }
 
-module "windowsserver" {
+/*module "windowsserver" {
   source              = "Azure/compute/azurerm"
   location            = "${var.location}"
   vm_hostname         = "pwc-ptfe"
@@ -47,7 +53,7 @@ module "windowsserver" {
   vm_os_simple        = "WindowsServer"
   public_ip_dns       = ["${var.windows_dns_prefix}"]
   vnet_subnet_id      = "${module.network.vnet_subnets[0]}"
-}
+}*/
 
 module "network" {
   source              = "Azure/network/azurerm"
@@ -60,6 +66,6 @@ output "linux_vm_public_name"{
   value = "${module.linuxserver.public_ip_dns_name}"
 }
 
-output "windows_vm_public_name"{
+/*output "windows_vm_public_name"{
   value = "${module.windowsserver.public_ip_dns_name}"
-}
+}*/
