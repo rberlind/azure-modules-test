@@ -4,17 +4,14 @@ This Terraform configuration provides an example for using the [Azure compute mo
 ## Introduction
 This Terraform configuration will create an Azure resource group, virtual network (with subnets), security groups, and 2 VMs, one Linux (Ubuntu 16.04) and one Windows. It will also create disks, network interfaces, and Azure availability sets for the VMs.
 
-## SSH Key
-This submodule is used to write the public SSH key you will add to a public_key variable of the workspace into the pre-existing, empty file id_rsa.pub so that it can be uploaded to the Linux VM when it is created.
-
 ## Instructions
 You can use the original GitHub repository, rberlind/azure-modules-test or create a fork of it. You do not actually need to clone the repository (or any fork of it) to your local machine since the Terraform code will be running on the Terraform Enterprise server after TFE downloads the code from GitHub.
 
 1. Create a workspace on your TFE Enterprise Server (which could be the SaaS TFE server running at https://atlas.hashicorp.com).
 1. Point your workspace at this repository or a fork of it.
 1. On the Variables tab of your workspace, add linux_dns_prefix and windows_dns_prefix Terraform variables in your workspace and set them to strings which will be used as the initial segment of the DNS names for the Linux and Windows VMs that will be provisioned in Azure. These must be globally unique. Additionally, certain values might give warnings about trademarks being used.
-1. On the Variables tab of your workspace, add the public_key Terraform variable to your workspade and populate it with the contents of the public SSH key you want to upload to the Linux VM so that you can then use your private SSH key from the same key pair to SSH to the Linux VM.
-1. On the Variables tab of your workspace, add environment variables ARM_CLIENT_ID, ARM_CLIENT_SECRET, ARM_SUBSCRIPTION_ID, and ARM_TENANT_ID set to the  credentials of an Azure service principal as described [here](https://www.terraform.io/docs/providers/azurerm/authenticating_via_service_principal.html).
+1. On the Variables tab of your workspace, add the public_key Terraform variable to your workspace and populate it with the contents of the public SSH key you want to upload to the Linux VM so that you can then use your private SSH key from the same key pair to ssh to the Linux VM.
+1. On the Variables tab of your workspace, add environment variables ARM_CLIENT_ID, ARM_CLIENT_SECRET, ARM_SUBSCRIPTION_ID, and ARM_TENANT_ID and set them to the  credentials of an Azure service principal as described [here](https://www.terraform.io/docs/providers/azurerm/authenticating_via_service_principal.html).
 1. Click the "Queue Plan" button in the upper right corner of the workspace page.
 1. After the Plan successfully completes, click the "Confirm and Apply" button at the bottom of the page.
 
