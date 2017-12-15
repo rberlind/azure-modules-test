@@ -55,6 +55,20 @@ module "network" {
   allow_ssh_traffic   = true
 }
 
+resource "azurerm_resource_group" "test" {
+  name     = "rogerAzureSQL"
+  location = "${var.location}"
+}
+
+resource "azurerm_sql_server" "test" {
+    name = "roger-sqlserver-2"
+    resource_group_name = "${azurerm_resource_group.test.name}"
+    location = "East US"
+    version = "12.0"
+    administrator_login = "roger"
+    administrator_login_password = "pAssw0rd"
+}
+
 output "linux_vm_public_name"{
   value = "${module.linuxserver.public_ip_dns_name}"
 }

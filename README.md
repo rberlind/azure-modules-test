@@ -9,9 +9,11 @@ You can use the original GitHub repository, rberlind/azure-modules-test or creat
 
 1. Create a workspace on your TFE Enterprise Server (which could be the SaaS TFE server running at https://atlas.hashicorp.com).
 1. Point your workspace at this repository or a fork of it.
-1. On the Variables tab of your workspace, add linux_dns_prefix and windows_dns_prefix Terraform variables in your workspace and set them to strings which will be used as the initial segment of the DNS names for the Linux and Windows VMs that will be provisioned in Azure. These must be globally unique. Additionally, certain values might give warnings about trademarks being used.
-1. On the Variables tab of your workspace, add the public_key Terraform variable to your workspace and populate it with the contents of the public SSH key you want to upload to the Linux VM so that you can then use your private SSH key from the same key pair to ssh to the Linux VM.
+1. On the Variables tab of your workspace, add linux_dns_prefix and windows_dns_prefix Terraform variables and set them to strings which will be used as the initial segment of the DNS names for the Linux and Windows VMs that will be provisioned in Azure. These must be globally unique. Additionally, certain values might give warnings about trademarks being used.
+1. On the Variables tab of your workspace, add the public_key Terraform variable and populate it with the contents of the public SSH key you want to upload to the Linux VM so that you can then use your private SSH key from the same key pair to ssh to the Linux VM.
+1. Click the Save button to save your Terraform variables.
 1. On the Variables tab of your workspace, add environment variables ARM_CLIENT_ID, ARM_CLIENT_SECRET, ARM_SUBSCRIPTION_ID, and ARM_TENANT_ID and set them to the  credentials of an Azure service principal as described [here](https://www.terraform.io/docs/providers/azurerm/authenticating_via_service_principal.html).
+1. Click the Save button to save your environment variables.
 1. Click the "Queue Plan" button in the upper right corner of the workspace page.
 1. After the Plan successfully completes, click the "Confirm and Apply" button at the bottom of the page.
 
