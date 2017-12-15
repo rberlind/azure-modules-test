@@ -1,5 +1,5 @@
 terraform {
-  required_version = ">= 0.11.0"
+  required_version = ">= 0.10.8"
 }
 
 variable "location" {
@@ -17,7 +17,7 @@ variable "windows_dns_prefix" {
 
 variable "admin_password" {
   description = "admin password for Windows VM"
-  default = "pTFE123!"
+  default = "pTFE1234!"
 }
 
 variable "public_key" {
