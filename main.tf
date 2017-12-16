@@ -29,7 +29,7 @@ resource "local_file" "ssh_key" {
   filename = "id_rsa.pub"
 }
 
-module "linuxserver" {
+/*module "linuxserver" {
   source              = "Azure/compute/azurerm"
   location            = "${var.location}"
   vm_os_simple        = "UbuntuServer"
@@ -55,17 +55,17 @@ module "network" {
   allow_ssh_traffic   = true
 }
 
-resource "azurerm_resource_group" "test" {
-  name     = "rogerTest1"
-  location = "${var.location}"
-}
-
 output "linux_vm_public_name"{
   value = "${module.linuxserver.public_ip_dns_name}"
 }
 
 output "windows_vm_public_name"{
   value = "${module.windowsserver.public_ip_dns_name}"
+}*/
+    
+resource "azurerm_resource_group" "test" {
+  name     = "rogerTest1"
+  location = "${var.location}"
 }
   
 resource "azurerm_network_security_group" "test" {
