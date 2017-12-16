@@ -38,7 +38,7 @@ module "linuxserver" {
   ssh_key = "${local_file.ssh_key.filename}"
 }
 
-/*module "windowsserver" {
+module "windowsserver" {
   source              = "Azure/compute/azurerm"
   location            = "${var.location}"
   vm_hostname         = "pwc-ptfe"
@@ -46,7 +46,7 @@ module "linuxserver" {
   vm_os_simple        = "WindowsServer"
   public_ip_dns       = ["${var.windows_dns_prefix}"]
   vnet_subnet_id      = "${module.network.vnet_subnets[0]}"
-}*/
+}
 
 module "network" {
   source              = "Azure/network/azurerm"
@@ -59,9 +59,9 @@ output "linux_vm_public_name"{
   value = "${module.linuxserver.public_ip_dns_name}"
 }
 
-/*output "windows_vm_public_name"{
+output "windows_vm_public_name"{
   value = "${module.windowsserver.public_ip_dns_name}"
-}*/
+}
     
 resource "azurerm_resource_group" "test" {
   name     = "rogerTest1"
