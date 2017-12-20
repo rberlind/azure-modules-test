@@ -62,30 +62,3 @@ output "linux_vm_public_name"{
 output "windows_vm_public_name"{
   value = "${module.windowsserver.public_ip_dns_name}"
 }
-    
-resource "azurerm_resource_group" "test" {
-  name     = "rogerTest1"
-  location = "${var.location}"
-}
-  
-resource "azurerm_network_security_group" "test" {
-  name                = "acceptanceTestSecurityGroup1"
-  location            = "${azurerm_resource_group.test.location}"
-  resource_group_name = "${azurerm_resource_group.test.name}"
-
-  security_rule {
-    name                       = "test123"
-    priority                   = 100
-    direction                  = "Inbound"
-    access                     = "Deny"
-    protocol                   = "Tcp"
-    source_port_range          = "*"
-    destination_port_range     = "*"
-    source_address_prefix      = "*"
-    destination_address_prefix = "*"
-  }
-
-  tags {
-    environment = "Production"
-  }
-}
