@@ -1,14 +1,10 @@
 terraform {
-  required_version = ">= 0.10.8"
+  required_version = ">= 0.11.1"
 }
 
 variable "location" {
   description = "Azure location in which to create resources"
   default = "East US"
-}
-
-variable "linux_dns_prefix" {
-  description = "DNS prefix to add to to public IP address for Linux VM"
 }
 
 variable "windows_dns_prefix" {
@@ -18,24 +14,6 @@ variable "windows_dns_prefix" {
 variable "admin_password" {
   description = "admin password for Windows VM"
   default = "pTFE1234!"
-}
-
-variable "public_key" {
-  description = "contents of SSH public key that will be uploaded to linux VM as id_rsa.pub"
-}
-
-resource "local_file" "ssh_key" {
-  content = "${var.public_key}"
-  filename = "id_rsa.pub"
-}
-
-module "linuxserver" {
-  source              = "Azure/compute/azurerm"
-  location            = "${var.location}"
-  vm_os_simple        = "UbuntuServer"
-  public_ip_dns       = ["${var.linux_dns_prefix}"]
-  vnet_subnet_id      = "${module.network.vnet_subnets[0]}"
-  ssh_key = "${local_file.ssh_key.filename}"
 }
 
 module "windowsserver" {
@@ -53,20 +31,6 @@ module "network" {
   location            = "${var.location}"
   resource_group_name = "terraform-compute"
   allow_ssh_traffic   = true
-}
-
-resource "azurerm_resource_group" "test1" {
-  name     = "rogerAzureSQL1"
-  location = "${var.location}"
-}
-
-resource "azurerm_resource_group" "test2" {
-  name     = "rogerAzureSQL2"
-  location = "${var.location}"
-}
-
-output "linux_vm_public_name"{
-  value = "${module.linuxserver.public_ip_dns_name}"
 }
 
 output "windows_vm_public_name"{
