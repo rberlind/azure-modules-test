@@ -19,7 +19,7 @@ variable "admin_password" {
 module "windowsserver" {
   source              = "Azure/compute/azurerm"
   location            = "${var.location}"
-  vm_hostname         = "pwc-ptfe"
+  vm_hostname         = "demo-tfe-vm"
   admin_password      = "${var.admin_password}"
   vm_os_simple        = "WindowsServer"
   public_ip_dns       = ["${var.windows_dns_prefix}"]
