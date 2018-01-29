@@ -28,6 +28,7 @@ module "windowsserver" {
 
 module "network" {
   source              = "Azure/network/azurerm"
+  version             = "1.1.1"
   location            = "${var.location}"
   resource_group_name = "terraform-compute"
   allow_ssh_traffic   = true
