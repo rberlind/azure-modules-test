@@ -18,6 +18,7 @@ variable "admin_password" {
 
 module "windowsserver" {
   source              = "Azure/compute/azurerm"
+  version             = "1.1.5"
   location            = "${var.location}"
   vm_hostname         = "demo-tfe-vm"
   admin_password      = "${var.admin_password}"
