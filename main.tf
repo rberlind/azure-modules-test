@@ -20,7 +20,7 @@ module "windowsserver" {
   source              = "atlas.hashicorp.com/RogerBerlind/compute/azurerm"
   version             = "1.1.5"
   location            = "${var.location}"
-  vm_hostname         = "demo-tfe-vm"
+  vm_hostname         = "demo-roger-vm"
   admin_password      = "${var.admin_password}"
   vm_os_simple        = "WindowsServer"
   public_ip_dns       = ["${var.windows_dns_prefix}"]
