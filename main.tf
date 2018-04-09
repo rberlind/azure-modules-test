@@ -17,7 +17,7 @@ variable "admin_password" {
 }
 
 module "windowsserver" {
-  source              = "atlas.hashicorp.com/RogerBerlind/compute/azurerm"
+  source              = "app.terraform.io/Cloud-Operations/compute/azurerm"
   version             = "1.1.5"
   location            = "${var.location}"
   vm_hostname         = "demo-roger-vm"
