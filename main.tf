@@ -17,9 +17,10 @@ variable "admin_password" {
 }
 
 module "windowsserver" {
-  source              = "Azure/compute/azurerm"
+  source              = "app.terraform.io/Cloud-Operations/compute/azurerm"
+  version             = "1.1.5"
   location            = "${var.location}"
-  vm_hostname         = "pwc-ptfe"
+  vm_hostname         = "demo-roger-vm"
   admin_password      = "${var.admin_password}"
   vm_os_simple        = "WindowsServer"
   public_ip_dns       = ["${var.windows_dns_prefix}"]
@@ -28,6 +29,7 @@ module "windowsserver" {
 
 module "network" {
   source              = "Azure/network/azurerm"
+  version             = "1.1.1"
   location            = "${var.location}"
   resource_group_name = "terraform-compute"
   allow_ssh_traffic   = true
