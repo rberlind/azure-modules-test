@@ -8,7 +8,7 @@ variable "location" {
 }
 
 variable "linux_dns_prefix" {
-  description = "DNS prefix to add to to public IP address for Linux VM"
+  description = "DNS prefix to add to to public IP address for a Linux VM"
 }
 
 variable "windows_dns_prefix" {
