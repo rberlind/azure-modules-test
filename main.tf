@@ -1,5 +1,5 @@
 terraform {
-  required_version = ">= 0.10.8"
+  required_version = ">= 0.11.5"
 }
 
 variable "location" {
