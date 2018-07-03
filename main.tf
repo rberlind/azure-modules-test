@@ -20,7 +20,7 @@ module "windowsserver" {
   source              = "Azure/compute/azurerm"
   version             = "1.1.5"
   location            = "${var.location}"
-  vm_hostname         = "${var.windows_dns_prefix}-host"
+  vm_hostname         = "demohost"
   admin_password      = "${var.admin_password}"
   vm_os_simple        = "WindowsServer"
   public_ip_dns       = ["${var.windows_dns_prefix}"]
