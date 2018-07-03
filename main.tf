@@ -1,5 +1,5 @@
 terraform {
-  required_version = ">= 0.11.1"
+  required_version = ">= 0.11.7"
 }
 
 variable "location" {
@@ -17,10 +17,10 @@ variable "admin_password" {
 }
 
 module "windowsserver" {
-  source              = "app.terraform.io/Cloud-Operations/compute/azurerm"
+  source              = "Azure/compute/azurerm"
   version             = "1.1.5"
   location            = "${var.location}"
-  vm_hostname         = "demo-roger-vm"
+  vm_hostname         = "${var.windows_dns_prefix}-host"
   admin_password      = "${var.admin_password}"
   vm_os_simple        = "WindowsServer"
   public_ip_dns       = ["${var.windows_dns_prefix}"]
