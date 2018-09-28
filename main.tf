@@ -11,32 +11,9 @@ variable "windows_dns_prefix" {
   description = "DNS prefix to add to to public IP address for Windows VM"
 }
 
-variable "linux_dns_prefix" {
-  description = "DNS prefix to add to to public IP address for a Linux VM"
-}
-
 variable "admin_password" {
   description = "admin password for Windows VM"
   default = "pTFE1234!"
-}
-
-variable "public_key" {
-  description = "contents of SSH public key that will be uploaded to linux VM as id_rsa.pub"
-}
-
-resource "local_file" "ssh_key" {
-  content = "${var.public_key}"
-  filename = "id_rsa.pub"
-}
-
-module "linuxserver" {
-  source              = "Azure/compute/azurerm"
-  version             = "1.1.5"
-  location            = "${var.location}"
-  vm_os_simple        = "UbuntuServer"
-  public_ip_dns       = ["${var.linux_dns_prefix}"]
-  vnet_subnet_id      = "${module.network.vnet_subnets[0]}"
-  ssh_key = "${local_file.ssh_key.filename}"
 }
 
 module "windowsserver" {
@@ -57,10 +34,6 @@ module "network" {
   location            = "${var.location}"
   resource_group_name = "${var.windows_dns_prefix}-rc"
   allow_ssh_traffic   = true
-}
-  
-output "linux_vm_public_name"{
-  value = "${module.linuxserver.public_ip_dns_name}"
 }
 
 output "windows_vm_public_name"{
