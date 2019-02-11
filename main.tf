@@ -16,19 +16,8 @@ variable "admin_password" {
   default = "pTFE1234!"
 }
 
-variable "compute_module_source" {
-  description = "source for the Azure compute module"
-  default = "Azure/compute/azurerm"
-}
-
-variable "network_module_source" {
-  description = "source for the Azure network module"
-  default = "Azure/network/azurerm"
-}
-
-
 module "windowsserver" {
-  source              = "${var.compute_module_source}"
+  source              = "Azure/compute/azurerm"
   version             = "1.1.5"
   location            = "${var.location}"
   resource_group_name = "${var.windows_dns_prefix}-rc"
@@ -40,7 +29,7 @@ module "windowsserver" {
 }
 
 module "network" {
-  source              = "${var.network_module_source}"
+  source              = "Azure/network/azurerm"
   version             = "1.1.1"
   location            = "${var.location}"
   resource_group_name = "${var.windows_dns_prefix}-rc"
