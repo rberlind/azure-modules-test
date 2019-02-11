@@ -17,7 +17,7 @@ variable "admin_password" {
 }
 
 module "windowsserver" {
-  source              = "Azure/compute/azurerm"
+  source              = "app.terraform.io/RSBST/compute/azurerm"
   version             = "1.1.5"
   location            = "${var.location}"
   resource_group_name = "${var.windows_dns_prefix}-rc"
@@ -29,7 +29,7 @@ module "windowsserver" {
 }
 
 module "network" {
-  source              = "Azure/network/azurerm"
+  source              = "app.terraform.io/RSBST/network/azurerm"
   version             = "1.1.1"
   location            = "${var.location}"
   resource_group_name = "${var.windows_dns_prefix}-rc"
