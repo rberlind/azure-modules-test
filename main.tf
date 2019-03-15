@@ -16,6 +16,8 @@ variable "admin_password" {
   default = "pTFE1234!"
 }
 
+provider "azurerm" {}
+
 module "windowsserver" {
   source              = "Azure/compute/azurerm"
   version             = "1.1.5"
