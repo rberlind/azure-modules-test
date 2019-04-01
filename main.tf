@@ -16,8 +16,13 @@ variable "admin_password" {
   default = "pTFE1234!"
 }
 
+variable "organization" {
+  description = "TFE organization for PMR"
+  default = "Cloud-Operations"
+}
+
 module "windowsserver" {
-  source              = "app.terraform.io/RSBST/compute/azurerm"
+  source              = "app.terraform.io/${organization}/compute/azurerm"
   version             = "1.1.5"
   location            = "${var.location}"
   resource_group_name = "${var.windows_dns_prefix}-rc"
@@ -29,7 +34,7 @@ module "windowsserver" {
 }
 
 module "network" {
-  source              = "app.terraform.io/RSBST/network/azurerm"
+  source              = "app.terraform.io/${organization}/network/azurerm"
   version             = "1.1.1"
   location            = "${var.location}"
   resource_group_name = "${var.windows_dns_prefix}-rc"
