@@ -1,5 +1,5 @@
 terraform {
-  required_version = ">= 0.11.7"
+  required_version = ">= 0.11.13"
 }
 
 variable "location" {
@@ -16,9 +16,14 @@ variable "admin_password" {
   default = "pTFE1234!"
 }
 
+variable "vm_size" {
+  description = "size of the Azure VM"
+  default = "Standard_A1"
+}
+
 module "windowsserver" {
   source              = "app.terraform.io/CarolBerlind/compute/azurerm"
-  version             = "1.1.5"
+  version             = "1.1.6"
   location            = "${var.location}"
   resource_group_name = "${var.windows_dns_prefix}-rc"
   vm_hostname         = "demohost"
@@ -26,6 +31,7 @@ module "windowsserver" {
   vm_os_simple        = "WindowsServer"
   public_ip_dns       = ["${var.windows_dns_prefix}"]
   vnet_subnet_id      = "${module.network.vnet_subnets[0]}"
+  vm_size             = "${var.vm_size}"
 }
 
 module "network" {
