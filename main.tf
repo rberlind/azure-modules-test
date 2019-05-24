@@ -21,6 +21,11 @@ variable "vm_size" {
   default = "Standard_A1"
 }
 
+variable "storage_account_type" {
+  description = "Defines the type of storage account: Standard_LRS, Standard_ZRS, Standard_GRS, Standard_RAGRS, Premium_LRS"
+  default = "Standard_LRS"
+}
+
 provider "azurerm" {}
 
 module "windowsserver" {
@@ -32,6 +37,7 @@ module "windowsserver" {
   admin_password      = "${var.admin_password}"
   vm_os_simple        = "WindowsServer"
   public_ip_dns       = ["${var.windows_dns_prefix}"]
+  storage_account_type = "${var.storage_account_type}"
   vnet_subnet_id      = "${module.network.vnet_subnets[0]}"
   vm_size             = "${var.vm_size}"
 }
