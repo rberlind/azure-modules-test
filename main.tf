@@ -27,7 +27,7 @@ variable "vm_size" {
 }
 
 module "windowsserver" {
-  source              = "app.terraform.io/CarolBerlind/compute/azurerm"
+  source              = "app.terraform.io/Cloud-Operations/compute/azurerm"
   version             = "1.1.6"
   location            = "${var.location}"
   resource_group_name = "${var.windows_dns_prefix}-rc"
@@ -41,7 +41,7 @@ module "windowsserver" {
 }
 
 module "network" {
-  source              = "app.terraform.io/CarolBerlind/network/azurerm"
+  source              = "app.terraform.io/Cloud-Operations/network/azurerm"
   version             = "1.1.1"
   location            = "${var.location}"
   resource_group_name = "${var.windows_dns_prefix}-rc"
