@@ -26,6 +26,10 @@ variable "vm_size" {
   default = "Standard_A1"
 }
 
+resource "random_pet" "pet" {
+
+}
+
 module "windowsserver" {
   source              = "app.terraform.io/Cloud-Operations/compute/azurerm"
   version             = "1.1.6"
