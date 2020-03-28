@@ -1,3 +1,8 @@
+provider "azurerm" {
+  # whilst the `version` attribute is optional, we recommend pinning to a given version of the Provider
+  version = "=1.44.0"
+}
+
 terraform {
   required_version = ">= 0.11.7"
 }
