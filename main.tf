@@ -30,7 +30,7 @@ provider "azurerm" {}
 
 module "windowsserver" {
   source              = "Azure/compute/azurerm"
-  version             = "1.1.5"
+  version             = "1.2.0"
   location            = "${var.location}"
   resource_group_name = "${var.windows_dns_prefix}-rc"
   vm_hostname         = "demohost"
@@ -44,7 +44,7 @@ module "windowsserver" {
 
 module "network" {
   source              = "Azure/network/azurerm"
-  version             = "1.1.1"
+  version             = "2.0.0"
   location            = "${var.location}"
   resource_group_name = "${var.windows_dns_prefix}-rc"
   allow_ssh_traffic   = true
